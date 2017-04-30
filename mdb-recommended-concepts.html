@@ -26,7 +26,7 @@
         border-bottom: 1px solid #f1f5f7;
       }
       
-       :host mdb-concept-recommendation {        
+       :host mdb-concept-recommendation {
         border-bottom: 1px solid #f1f5f7;
       }
       
@@ -43,7 +43,9 @@
         <mdb-concept-recommendation property="{{item.property}}" recommendation-factor="{{item.recommendationFactor}}"></mdb-concept-recommendation>
       </template>
     </div>
-    <mdb-search-box placeholder="Search for more concepts"></mdb-search-box>
+    <div id="search-box">
+      <mdb-search-box placeholder="Search for more concepts"></mdb-search-box>
+    </div>
   </template>
 
   <script>
