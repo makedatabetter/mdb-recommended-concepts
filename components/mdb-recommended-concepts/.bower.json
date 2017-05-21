@@ -1,0 +1,27 @@
+{
+  "name": "mdb-recommended-concepts",
+  "main": "mdb-recommended-concepts.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "mdb-radio-list": "git://github.com/skamble89/mdb-radio-list.git",
+    "mdb-title": "git://github.com/skamble89/mdb-title.git",
+    "mdb-search-box": "git://github.com/skamble89/mdb-search-box.git"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/skamble89/mdb-recommended-concepts",
+  "_release": "4dda24c836",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "4dda24c8365d6e143b9d6e6d0e33d707cbeb7a5e"
+  },
+  "_source": "https://github.com/skamble89/mdb-recommended-concepts.git",
+  "_target": "master",
+  "_originalSource": "skamble89/mdb-recommended-concepts",
+  "_direct": true
+}
