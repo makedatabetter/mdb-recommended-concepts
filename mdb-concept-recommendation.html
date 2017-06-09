@@ -18,45 +18,50 @@
                 padding-top: 10px;
                 padding-bottom: 10px;
             }
-            
-             :host mdb-radio-list {
-                display: inline-block;
+
+             :host #recommendationContainer #property {
+                width: 25%;
+                word-wrap: break-word;
+                position: absolute;
+                top: 50%;
+                transform: translate(0, -50%);
+                @apply(--mdb-recommended-concepts-property-name)
             }
-            
+
+             :host mdb-radio-list {
+                position: relative;
+                left: 25%;
+            }
+
              :host paper-radio-button {
                 width: 50px;
                 text-align: center;
             }
-            
+
              :host #recommendationContainer {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
                 justify-content: space-between;
+                padding: 3px;
+                position: relative;
             }
-            
+
              :host #recommendationFactor {
-                display: inline-block;
-                width: 30px;
-                margin-left: 1.2em;
-                margin-right: 1.2em;
-            }
-            
-             :host #recommendationContainer #property {
-                display: inline-block;
-                width: 25%;
-                word-wrap: break-word;
-                @apply(--mdb-recommended-concepts-property-name)
+                position: absolute;
+                left: 90%;
+                top: 50%;
+                transform: translate(0, -50%);
             }
         </style>
         <div id="recommendationContainer">
             <span id="property">[[property]]</span>
-            <mdb-radio-list size="small" selected="{{recommended}}" on-paper-radio-group-changed="_checkConceptIdentified">
+            <mdb-radio-list size="small" selected="{{recommended}}">
                 <paper-radio-button name="yes">YES</paper-radio-button>
                 <paper-radio-button name="no">NO</paper-radio-button>
                 <paper-radio-button name="maybe">MAYBE</paper-radio-button>
             </mdb-radio-list>
-            <span id="recommendationFactor">[[recommendation-factor]]%</span>
+            <span id="recommendationFactor">{{recommendationFactor}}%</span>
         </div>
     </template>
 
@@ -75,24 +80,48 @@
                     type: String
                 },
 
-                recommendationFactor: {
+                _initialRecommendationFactor: {
                     type: Number,
                     value: 0,
-                    readOnly: true
+                    readonly: true
+                },
+
+                recommendationFactor: {
+                    type: Number,
+                    value: 0
                 },
 
                 recommended: {
                     type: String,
                     value: 'maybe',
                     notify: true,
-                    reflectToAttribute: true
+                    reflectToAttribute: true,
+                    observer: '_recommendedChanged'
                 }
             },
 
-            _checkConceptIdentified: function () {
-                if (this.recommended === 'yes') {
-                    this.fire('concept-identified', this.property.trim());
+            attached: function () {
+                this._initialRecommendationFactor = this.recommendationFactor;
+            },
+
+            _recommendedChanged: function () {
+                switch (this.recommended) {
+                    case 'yes':
+                        this.recommendationFactor = 100;
+                        break;
+                    case 'no':
+                        this.recommendationFactor = 0;
+                        break;
+                    case 'maybe':
+                        this.recommendationFactor = this._initialRecommendationFactor;
+                        break;
                 }
+
+                this.fire('recommendation-changed', {
+                    property: this.property,
+                    recommended: this.recommended,
+                    recommendationFactor: this.recommendationFactor
+                });
             }
 
         });
